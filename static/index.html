@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101c22">
+  <meta name="description" content="Небольшое приложение для учёта рабочего времени и отчётов по сотрудникам">
+  <title>Tempo — учёт рабочего времени</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><div class="brand"><span class="brand-mark">◷</span> tempo<span class="brand-period">.</span></div><span class="topbar-note"><span class="live-dot"></span> Трекер рабочего времени</span></header>
+  <main class="shell">
+    <section class="intro"><div><span class="eyebrow">РАБОЧЕЕ ПРОСТРАНСТВО / 01</span><h1>Время под <em>контролем.</em></h1><p>Задачи, сотрудники и часы работы — всё в одном месте.</p></div><div class="intro-accent" aria-hidden="true">↗</div></section>
+    <section class="summary" aria-label="Сводка">
+      <div class="summary-card"><div class="metric-label">Сотрудники</div><div class="metric-value" id="employeeCount">0</div><div class="metric-hint">В команде</div></div>
+      <div class="summary-card"><div class="metric-label">Активные таймеры</div><div class="metric-value" id="runningCount">0</div><div class="metric-hint">Сейчас в работе</div></div>
+      <div class="summary-card highlighted"><div class="metric-label">Учтено за период</div><div class="metric-value" id="periodTotal">00:00</div><div class="metric-hint">Часов и минут</div></div>
+    </section>
+    <div class="content-grid">
+      <section class="panel employee-panel" aria-labelledby="teamHeading"><div class="section-header"><div><div class="eyebrow">КОМАНДА</div><h2 id="teamHeading">Сотрудники</h2></div><span class="counter" id="teamCount">0</span></div>
+        <form id="addForm" class="add-form"><label class="sr-only" for="employeeName">Имя сотрудника</label><input id="employeeName" name="name" maxlength="80" minlength="2" placeholder="Имя нового сотрудника" required autocomplete="off"><button type="submit" class="icon-button" aria-label="Добавить сотрудника" title="Добавить сотрудника">+</button></form>
+        <div id="employeeList" class="employee-list" aria-live="polite"></div>
+      </section>
+      <section class="panel timer-panel" aria-labelledby="timerHeading"><div class="section-header"><div><div class="eyebrow">ТАЙМЕР</div><h2 id="timerHeading">Новая задача</h2></div><span class="timer-ornament" aria-hidden="true">◉</span></div>
+        <form id="timerForm" class="timer-form"><label for="employeeSelect">Сотрудник</label><select id="employeeSelect" required><option value="">Выберите сотрудника</option></select><label for="taskDescription">Над чем работаете?</label><textarea id="taskDescription" rows="3" placeholder="Например: Подготовка макета главной страницы" minlength="2" maxlength="500" required></textarea><button type="submit" class="primary-button" id="startButton"><span>▶</span> Запустить таймер</button></form>
+        <div class="divider-line"></div><div class="subheading">В работе прямо сейчас</div><div id="activeTimers" class="active-timers" aria-live="polite"><p class="muted">Нет активных таймеров</p></div>
+      </section>
+    </div>
+    <section class="panel report-panel" aria-labelledby="reportHeading"><div class="section-header report-header"><div><div class="eyebrow">АНАЛИТИКА</div><h2 id="reportHeading">Отчёт по времени</h2></div><form id="reportForm" class="date-filter"><div><label for="dateFrom">С</label><input id="dateFrom" type="date" required></div><div><label for="dateTo">По</label><input id="dateTo" type="date" required></div><button type="submit" class="secondary-button">Показать</button></form></div><div id="reportContent" aria-live="polite"></div></section>
+    <footer>tempo. <span>Мини-приложение для тестового задания · Данные хранятся в SQLite</span></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
